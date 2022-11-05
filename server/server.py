@@ -19,6 +19,7 @@ from mongoConnection import MongoConnection
 #SAMPLE TIME START: "2016-01-01T00:00:00"
 #SAMPLE TIME END: "2016-01-02T00:00:00"
 
+app = Flask(__name__)
 
 
 def generateJsonFile(response):
@@ -46,11 +47,10 @@ def formatDataResponse(data):
     return responseData
 
 
-if __name__ == "__main__":
-    
-    if len(sys.argv) != 4:
-        raise Exception("Error calling Script. GetApiRequests.py takes 3 arguments. "+str(len(sys.argv)-1)+" passed.")
 
+@app.route("/graphdata/<timeStart>/<timeEnd>/<apiKey>")
+def test(timeStart, timeEnd, apiKey):
+    
     db = MongoConnection("ETH") # Creating a connection to ETH financial collection
     COINAPIURL = "https://rest.coinapi.io/v1/exchangerate/ETH/USD/history"
     response = requests.get(COINAPIURL,
@@ -63,22 +63,19 @@ if __name__ == "__main__":
 
     if response:
         print("Request Successful. Parsing Response...")
-        jsonFile = generateJsonFile(jsonResponse)
-        
-        data = json.loads(jsonFile[1])
+        jsonResponse = generateJsonFile(jsonResponse)
+        data = json.loads(jsonResponse[1])
         db.addManyDB(data)
         
-        if jsonFile:
-            print("Response Parsed. Sucessfully Generated Json File.")
+        return jsonResponse[1]
 
     else:
         errorString = "Error Requesting Coin API. Error Code: "+str(response.status_code)+". Reason: "+jsonResponse["error"]
         raise Exception(errorString)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
     
-    sentinel = input("Check mongo Atlas to see if changes were made, do you want to delete all entries now? y/n ")
-    
-    if (sentinel.lower == "y"):
-        db.deleteAll()
-    else:
-        pass
+
     
