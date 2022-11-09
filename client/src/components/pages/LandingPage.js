@@ -11,7 +11,7 @@ export default function LandingPage() {
             <p className="main-para text-center">Blockchain Project for COSC-431</p>
             <div className="buttons text-center box-center">
                 <Link to="/login">
-                    <button className="primary-button">log in</button>
+                    <button className="primary-button" id="log_btn"><span>log in</span></button>
                 </Link>
                 <Link to="/register">
                     <button className="primary-button" id="reg_btn"><span>register </span></button>
