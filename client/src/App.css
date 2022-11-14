@@ -150,3 +150,19 @@ form span {
    height: 400px;
    width: 400px;
 }
+.table{
+  border: 1px solid rgb(242, 237, 237);
+  margin-left:4px;
+  margin-right:7px;
+  padding:3px;
+  width:15px;
+  border-top:none;
+}
+.chart-custom{
+  border: 1px solid rgb(244, 239, 239);
+  border-top: none;
+  margin:3px;
+  padding:6px;
+  margin-top:25px;
+  margin-bottom:25px;
+}
