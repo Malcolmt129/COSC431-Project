@@ -49,7 +49,7 @@ def formatDataResponse(data):
 
 
 @app.route("/graphdata/<timeStart>/<timeEnd>/<apiKey>")
-def test(timeStart, timeEnd, apiKey):
+def test(timeStart, timeEnd, apiKey, addToDB):
     
     db = MongoConnection("ETH") # Creating a connection to ETH financial collection
     COINAPIURL = "https://rest.coinapi.io/v1/exchangerate/ETH/USD/history"
@@ -65,7 +65,8 @@ def test(timeStart, timeEnd, apiKey):
         print("Request Successful. Parsing Response...")
         jsonResponse = generateJsonFile(jsonResponse)
         data = json.loads(jsonResponse[1])
-        db.addManyDB(data)
+        if addToDB:
+            db.addManyDB(data)
         
         return jsonResponse[1]
 
