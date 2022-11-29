@@ -1,9 +1,10 @@
 /***    General     ***/
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -37,7 +38,6 @@ body {
 .main-title {
   padding-top: 10rem;
   font-size: 5rem;
-  font-family: 'Fascinate', cursive;
   text-transform: uppercase;
   text-align: center;
 }
@@ -48,13 +48,13 @@ body {
   text-align: center;
 }
 
-#reg_btn span {
+#reg_btn span, #log_btn span{
   display: inline-block;
   position: relative;
   transition: 0.5s;
 }
 
-#reg_btn span:after {
+#reg_btn span:after,#log_btn span:after {
   content: '\00bb';
   position: absolute;
   opacity: 0;
@@ -63,11 +63,11 @@ body {
   transition: 0.5s;
 }
 
-#reg_btn:hover span {
+#reg_btn:hover span, #log_btn:hover span {
 padding-right: 25px;
 }
 
-#reg_btn:hover span:after {
+#reg_btn:hover span:after ,#log_btn:hover span:after{
 opacity: 1;
 right: 0;
 }
@@ -149,4 +149,20 @@ form span {
 .form-box-size{
    height: 400px;
    width: 400px;
+}
+.table{
+  border: 1px solid rgb(242, 237, 237);
+  margin-left:4px;
+  margin-right:7px;
+  padding:3px;
+  width:15px;
+  border-top:none;
+}
+.chart-custom{
+  border: 1px solid rgb(244, 239, 239);
+  border-top: none;
+  margin:3px;
+  padding:6px;
+  margin-top:25px;
+  margin-bottom:25px;
 }
