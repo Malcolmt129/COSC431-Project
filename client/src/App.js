@@ -7,10 +7,14 @@ import ForgetPasswordPage from './components/pages/ForgetPasswordPage'
 import HomePage from './components/pages/HomePage'
 import './App.css'
 
+
+
+
+
 export default function App() {
     return (
         <Router>
-            <div>
+            
                 <Routes>
                     <Route exact path="/" element={ <LandingPage/> } />
                     <Route path="/login" element={ <LoginPage/> } />
@@ -19,7 +23,7 @@ export default function App() {
                     <Route path="/home" element={ <HomePage/> } />
                 </Routes>
                 <Footer />
-            </div>
+
         </Router>
     )
 }
