@@ -10,11 +10,15 @@ import ApexChart from './components/pages/ApexChart'
 import NavBar from "./components/NavBar"
 
 
+
+
+
+
 export default function App() {
     return (
         <Router>
             <div>
-                <NavBar/> 
+                <NavBar/>
                 <Routes>
                     <Route exact path="/" element={ <LandingPage/> } />
                     <Route path="/login" element={ <LoginPage/> } />
