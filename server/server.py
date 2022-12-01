@@ -7,6 +7,7 @@ import json
 import sys
 import os
 from mongoConnection import MongoConnection
+from flask_cors import CORS
 
 #graphdata Requires 3 Arguments: Start Time, End Time, and API Key.
 #Time Uses The Following Format (Passed as String): YYYY-MM-DDThh:mm:ss OR YYYY-MM-DD
@@ -20,14 +21,15 @@ from mongoConnection import MongoConnection
 #SAMPLE TIME END: "2016-01-02T00:00:00"
 
 app = Flask(__name__)
+CORS(app)
 
 
 def generateJsonFile(response):
-    hourlyEntryList = []
+    hourlyEntryList = {"data" : []}
 
     for hourlyEntry in response:
         formattedData = formatDataResponse(hourlyEntry)
-        hourlyEntryList.append(formattedData)
+        hourlyEntryList["data"].append(formattedData)
         
     jsonData = json.dumps(hourlyEntryList, indent=2)
     
@@ -39,8 +41,8 @@ def formatDataResponse(data):
     epochTime = calendar.timegm(datetime.datetime.strptime(timeString[:-2], "%Y-%m-%dT%H:%M:%S.%f").timetuple())
     responseData = {
         "x": epochTime,
-        "y": {"open":data["rate_open"], "high":data["rate_high"],
-        "low":data["rate_low"], "close":data["rate_close"]}
+        "y": [data["rate_open"], data["rate_high"],
+        data["rate_low"], data["rate_close"]]
     }
     
 
@@ -48,8 +50,8 @@ def formatDataResponse(data):
 
 
 
-@app.route("/graphdata/<timeStart>/<timeEnd>/<apiKey>")
-def test(timeStart, timeEnd, apiKey):
+@app.route("/graphdata/<timeStart>/<timeEnd>/<apiKey>/<addToDB>")
+def test(timeStart, timeEnd, apiKey, addToDB):
     
     db = MongoConnection() # Creating a connection to ETH financial collection
     COINAPIURL = "https://rest.coinapi.io/v1/exchangerate/ETH/USD/history"
@@ -65,7 +67,8 @@ def test(timeStart, timeEnd, apiKey):
         print("Request Successful. Parsing Response...")
         jsonResponse = generateJsonFile(jsonResponse)
         data = json.loads(jsonResponse[1])
-        db.addManyDB(data)
+        #if addToDB:
+        #    db.addManyDB(data)
         
         return jsonResponse[1]
 

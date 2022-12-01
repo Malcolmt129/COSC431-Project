@@ -3,6 +3,15 @@ import Chart from 'react-apexcharts';
 import TradingWizard from '../TradingWizard';
 
 
+async function setChart(){
+  //I want the 3 inputs (start time, end time, and api key) to be variables to 
+  const hraphData = await fetch('http://localhost:5000/graphdata/2022-01-01/2022-01-02/C8840AED-9AC5-4F51-B1F3-8212FC3F5F0A/false').then(res => res.json());
+  console.log(b);
+  for (let i = 0; i < graphData["data"].length; i++) {
+    graphData["data"][i]["x"] =  new Data(graphData["data"][i]["x"])
+  }
+}
+
 class ApexChart extends React.Component {
     constructor(props) {
       super(props);
@@ -278,9 +287,18 @@ class ApexChart extends React.Component {
           <>
             <h1 className='text-center'>Apex CandleStick Chart</h1>
             <div id="chart" className='d-flex flex-row'>
+<<<<<<< HEAD
                 <Chart className="chart-custom" options={this.state.options} series={this.state.series} type="candlestick" width={1000} height={650} />
                 <TradingWizard className="tradeStats"/>
+=======
+                <Chart className="chart-custom" options={this.state.options} series={this.state.series} type="candlestick" width={600} height={600}/>
+                <TableCoin/>
+>>>>>>> main
             </div>
+            <button onClick={setChart}>Generate</button>
+            <input required id='timeStart' type='text' placeholder='Enter Start Date'></input>
+            <input required id='timeEnd' type='text' placeholder='Enter End Date'></input>
+            <input required id='APIKey' type='text' placeholder='Enter API Key'></input>
             </>
       );
     }
