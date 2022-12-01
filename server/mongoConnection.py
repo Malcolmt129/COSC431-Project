@@ -7,16 +7,16 @@ class MongoConnection:
    # parameter, because we currently have 2, one for the ETH data
    # and one for the users. So this is allows you to pick one.
    
-    def __init__(self, collection) -> None:
+    def __init__(self) -> None:
         self.connection_str ="mongodb+srv://Username:Password@class.vrz5xva.mongodb.net/test"
         self.client = MongoClient(self.connection_str)
-        db = self.client["ETH"]
-        self.collection = db[collection]
+        self.db = self.client["ETH"]
+        self.collection = self.db["ETH"]
         
         
     # Basically so we can open connections automatically
     def __enter__(self):
-        return self.collection
+        return self
     
     # And automatically close when we are done.
     # Mongo doesn't allow too many connection to
@@ -35,11 +35,19 @@ class MongoConnection:
     def deleteAll(self):
         self.collection.delete_many({}) # Used for testing purposes to quickly remove all entries.
         
+    def query_from_to(self, start, end):
+        self.collection.find([{
+            "x":{
+                "$gte": start,
+                "$lte":end 
+            }
+        }])
+        
         
 
 if __name__ == "__main__":
     
-    db = MongoConnection("ETH")
+    db = MongoConnection()
     # db.deleteAll()
     # Only use this code if you want to delete all inputs
     

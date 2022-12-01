@@ -51,7 +51,7 @@ def formatDataResponse(data):
 @app.route("/graphdata/<timeStart>/<timeEnd>/<apiKey>")
 def test(timeStart, timeEnd, apiKey):
     
-    db = MongoConnection("ETH") # Creating a connection to ETH financial collection
+    db = MongoConnection() # Creating a connection to ETH financial collection
     COINAPIURL = "https://rest.coinapi.io/v1/exchangerate/ETH/USD/history"
     response = requests.get(COINAPIURL,
     params={'period_id': '1HRS',

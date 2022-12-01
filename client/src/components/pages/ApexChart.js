@@ -1,69 +1,7 @@
 import React from 'react';
-import Chart from 'react-apexcharts'
-import Table from 'react-bootstrap/Table';
+import Chart from 'react-apexcharts';
+import TradingWizard from '../TradingWizard';
 
-const TableCoin=()=> {
-    return (
-      <Table  className='table'   striped="columns">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>#</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>80</td>
-            <td>56</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-          <tr>
-            <td>18000</td>
-            <td>3600</td>
-          </tr>
-        </tbody>
-      </Table>
-    );
-  }
 
 class ApexChart extends React.Component {
     constructor(props) {
@@ -331,9 +269,7 @@ class ApexChart extends React.Component {
               enabled: true
             }
           }
-        },
-      
-      
+        },  
       };
     }
     
@@ -342,8 +278,8 @@ class ApexChart extends React.Component {
           <>
             <h1 className='text-center'>Apex CandleStick Chart</h1>
             <div id="chart" className='d-flex flex-row'>
-                <Chart className="chart-custom" options={this.state.options} series={this.state.series} type="candlestick" width={600} height={600} />
-                <TableCoin/>
+                <Chart className="chart-custom" options={this.state.options} series={this.state.series} type="candlestick" width={1000} height={650} />
+                <TradingWizard className="tradeStats"/>
             </div>
             </>
       );
