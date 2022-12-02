@@ -67,10 +67,10 @@ const TableCoin=()=> {
 
 async function setChart(){
   //I want the 3 inputs (start time, end time, and api key) to be variables to 
-  const hraphData = await fetch('http://localhost:5000/graphdata/2022-01-01/2022-01-02/C8840AED-9AC5-4F51-B1F3-8212FC3F5F0A/false').then(res => res.json());
-  console.log(b);
+  const graphData = await fetch('http://localhost:5000/graphdata/2022-01-01/2022-01-02/C8840AED-9AC5-4F51-B1F3-8212FC3F5F0A/false').then(res => res.json());
+  console.log(graphData);
   for (let i = 0; i < graphData["data"].length; i++) {
-    graphData["data"][i]["x"] =  new Data(graphData["data"][i]["x"])
+    graphData["data"][i]["x"] =  new Date(graphData["data"][i]["x"])
   }
 }
 
