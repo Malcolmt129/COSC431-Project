@@ -1,36 +1,40 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 
 
 const TableCoin = () => {
+  
   return (
+    <>
     <Table className="table" striped="columns">
       <thead>
         <tr>
-          <th>#</th>
-          <th>#</th>
+          <th>Flow</th>
+          <th>strategy</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>18000</td>
-          <td>3600</td>
+          <td>Traiding State</td>
+          <td>0</td>
         </tr>
         <tr>
-          <td>18000</td>
-          <td>3600</td>
+          <td>Max DrawDown</td>
+          <td>0</td>
         </tr>
         <tr>
-          <td>18000</td>
-          <td>3600</td>
+          <td>Expected Profit</td>
+          <td>0</td>
         </tr>
         <tr>
-          <td>18000</td>
-          <td>3600</td>
+          <td>Win/Lose</td>
+          <td>0</td>
         </tr>
       </tbody>
     </Table>
+    <Button className="strat-button">Set strategy</Button>
+    </>
   );
 };
 

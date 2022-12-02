@@ -202,3 +202,24 @@ tspan{
   left: 10%;
   top: 22px;
 }
+table.table.table.table-striped-columns {
+  height: 316px;
+  width: 600px;
+  margin-left: 59px;
+  margin-top: 14px;
+  border-width: 7px;
+}
+button#log_btn {
+  height: 61px;
+}
+button#reg_btn {
+  height: 61px;
+}
+button.primary-button {
+  height: 61px;
+}
+button.strat-button.btn.btn-primary {
+  position: relative;
+  left: 66%;
+  bottom: 0px;
+}
