@@ -281,11 +281,12 @@ const ApexChart = () => {
   const [date, setDate] = useState([1999, 1200]);
   const [startDate, setStartDate] = useState("2022-01-01");
   const [endDate, setEndDate] = useState("2022-01-02");
+  const [submitClicked, setSubmitClicked] = useState(false);
 
   // this is where you will be fetching the data and set the state
   useEffect(() => {
     const getData = async () => {
-      const url = "http://localhost:5000/graphdata/2022-01-01/2022-01-02/C8840AED-9AC5-4F51-B1F3-8212FC3F5F0A/false";
+      const url = `http://localhost:5000/graphdata/${startDate}/${endDate}/C8840AED-9AC5-4F51-B1F3-8212FC3F5F0A/false`;
       const response = await fetch(url);
       const data = await response.json();
       try {
@@ -303,7 +304,7 @@ const ApexChart = () => {
       }
     };
     getData();
-  }, []);
+  }, [submitClicked]);
 
   const series = [
     {
@@ -343,6 +344,7 @@ const ApexChart = () => {
         "End Date": endDate,
       };
       console.log(frmdetails);
+      setSubmitClicked(!submitClicked);
     };
 
     return (
