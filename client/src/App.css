@@ -185,4 +185,20 @@ label {
   font-size: large;
   padding: 8px;
 }
-
+table.table.table.table-striped-columns {
+  height: 316px;
+  width: 400px;
+  margin-left: 59px;
+  margin-top: 14px;
+}
+.apexcharts-text .apexcharts-xaxis-label{
+  font-size: x-small !important;
+}
+tspan{
+  font-size: x-small !important;
+}
+.user-input-div {
+  position: relative;
+  left: 10%;
+  top: 22px;
+}
