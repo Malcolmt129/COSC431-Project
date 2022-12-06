@@ -36,10 +36,13 @@ class MongoConnection:
         self.collection.delete_many({}) # Used for testing purposes to quickly remove all entries.
         
     def query_from_to(self, start, end):
-        return self.collection.find({"x" : {"$gte" : start , "$lte" : end}}, {"_id":0})
+        result = self.collection.find({"x" : {"$gte" : start , "$lte" : end}}, {"_id":0, "x":1, "y":1})
+        data = []
+        for candle in result:
+            data.append(candle)
+            
+        return data
         
-    def testFindOne(self, target):
-        self.collection.find({"x" : target})
         
         
 
