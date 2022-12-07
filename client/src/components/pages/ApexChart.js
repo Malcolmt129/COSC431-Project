@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Button, Table } from "react-bootstrap";
 
-
 const TableCoin = () => {
   
   return (
@@ -299,6 +298,19 @@ const ApexChart = () => {
           data["data"][i]["x"] = await new Date(data["data"][i]["x"]*1000);
         }
 
+
+                <Chart className="chart-custom" options={this.state.options} series={this.state.series} type="candlestick" width={600} height={600}/>
+                <TableCoin/>
+            </div>
+            <button onClick={setChart}>Generate</button>
+            <input required id='timeStart' type='text' placeholder='Enter Start Date'></input>
+            <input required id='timeEnd' type='text' placeholder='Enter End Date'></input>
+            <input required id='APIKey' type='text' placeholder='Enter API Key'></input>
+            </>
+      );
+    }
+  }
+  export default ApexChart
       
 
         setAverageTemp(data["data"]); 
