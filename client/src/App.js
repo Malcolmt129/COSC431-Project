@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import LandingPage from './components/pages/LandingPage'
 import LoginPage from './components/pages/LoginPage'
@@ -8,8 +8,6 @@ import HomePage from './components/pages/HomePage'
 import './App.css'
 import ApexChart from './components/pages/ApexChart'
 import NavBar from "./components/NavBar"
-
-
 
 
 

@@ -151,18 +151,75 @@ form span {
    width: 400px;
 }
 .table{
-  border: 1px solid rgb(242, 237, 237);
+  border: 2px solid rgb(242, 237, 237);
   margin-left:4px;
   margin-right:7px;
   padding:3px;
   width:15px;
-  border-top:none;
 }
 .chart-custom{
-  border: 1px solid rgb(244, 239, 239);
-  border-top: none;
+  border: 11px solid rgb(244, 239, 239);
   margin:3px;
   padding:6px;
   margin-top:25px;
   margin-bottom:25px;
+}
+input[type="text"] {
+  border: 1px solid black;
+  margin-right: 9px;
+  height: 40px;
+}
+button {
+  height: 39px;
+  background-color: green;
+  color: white;
+  width: 230px;
+  border-radius: 10px !important;
+}
+.user-input-div {
+  position: relative;
+  left: 25%;
+}
+label {
+  display: inline-block;
+  font-size: large;
+  padding: 8px;
+}
+table.table.table.table-striped-columns {
+  height: 316px;
+  width: 400px;
+  margin-left: 59px;
+  margin-top: 14px;
+}
+.apexcharts-text .apexcharts-xaxis-label{
+  font-size: x-small !important;
+}
+tspan{
+  font-size: x-small !important;
+}
+.user-input-div {
+  position: relative;
+  left: 10%;
+  top: 22px;
+}
+table.table.table.table-striped-columns {
+  height: 316px;
+  width: 600px;
+  margin-left: 59px;
+  margin-top: 14px;
+  border-width: 7px;
+}
+button#log_btn {
+  height: 61px;
+}
+button#reg_btn {
+  height: 61px;
+}
+button.primary-button {
+  height: 61px;
+}
+button.strat-button.btn.btn-primary {
+  position: relative;
+  left: 66%;
+  bottom: 0px;
 }
