@@ -49,7 +49,6 @@ def formatDataResponse(data):
     return responseData
 
 
-
 @app.route("/graphdata/<timeStart>/<timeEnd>/<apiKey>/<addToDB>")
 def test(timeStart, timeEnd, apiKey, addToDB):
     
@@ -69,7 +68,12 @@ def test(timeStart, timeEnd, apiKey, addToDB):
         data = json.loads(jsonResponse[1])
         #if addToDB:
         #    db.addManyDB(data)
+        currentPath = os.path.abspath(os.getcwd())
         
+        with open(os.path.abspath(os.path.join(currentPath, "server", "cache", "cachedata.json")),"w") as f:
+            json.dump(data, f)
+        f.close()
+
         return jsonResponse[1]
 
     else:
