@@ -24,61 +24,71 @@ app = Flask(__name__)
 CORS(app)
 
 
-def generateJsonFile(response):
-    hourlyEntryList = {"data" : []}
+#def generateJsonFile(response):
+#    hourlyEntryList = {"data" : []}
+#
+#    for hourlyEntry in response:
+#        formattedData = formatDataResponse(hourlyEntry)
+#        hourlyEntryList["data"].append(formattedData)
+#        
+#    jsonData = json.dumps(hourlyEntryList, indent=2)
+#    
+#    return True, jsonData
 
-    for hourlyEntry in response:
-        formattedData = formatDataResponse(hourlyEntry)
-        hourlyEntryList["data"].append(formattedData)
-        
-    jsonData = json.dumps(hourlyEntryList, indent=2)
+
+#def formatDataResponse(data):
+#    timeString = data["time_period_end"]
+#    epochTime = calendar.timegm(datetime.datetime.strptime(timeString[:-2], "%Y-%m-%dT%H:%M:%S.%f").timetuple())
+#    responseData = {
+#        "x": epochTime,
+#        "y": [data["rate_open"], data["rate_high"],
+#        data["rate_low"], data["rate_close"]]
+#    }
     
-    return True, jsonData
+
+#    return responseData
 
 
-def formatDataResponse(data):
-    timeString = data["time_period_end"]
-    epochTime = calendar.timegm(datetime.datetime.strptime(timeString[:-2], "%Y-%m-%dT%H:%M:%S.%f").timetuple())
-    responseData = {
-        "x": epochTime,
-        "y": [data["rate_open"], data["rate_high"],
-        data["rate_low"], data["rate_close"]]
-    }
+def getEpochTime(desiredTime):
+    if "T" in desiredTime:
+        epochTime = calendar.timegm(datetime.datetime.strptime(desiredTime, "%Y-%m-%dT%H:%M:%S.%f").timetuple())
+    else:
+        epochTime = calendar.timegm(datetime.datetime.strptime(desiredTime, "%Y-%m-%d").timetuple())
     
-
-    return responseData
-
+    return epochTime
 
 @app.route("/graphdata/<timeStart>/<timeEnd>/<apiKey>/<addToDB>")
 def test(timeStart, timeEnd, apiKey, addToDB):
+    db = MongoConnection()  
+
+    startEpoch = getEpochTime(timeStart)
+    endEpoch = getEpochTime(timeEnd)
+    response = db.query_from_to(startEpoch, endEpoch) #Returns iterable cursor Object
+
+    #db = MongoConnection() # Creating a connection to ETH financial collection
+    #COINAPIURL = "https://rest.coinapi.io/v1/exchangerate/ETH/USD/history"
+    #response = requests.get(COINAPIURL,
+    #params={'period_id': '1HRS',
+    #        'time_start': timeStart,
+    #        'time_end': timeEnd,
+    #        'apikey': apiKey}
+    #        )
+    #jsonResponse = response.json()
+
+    print("Request Successful. Parsing Response...")
+    #jsonResponse = generateJsonFile(jsonResponse)
+    #data = json.loads(jsonResponse[1])
+    #if addToDB:
+    #    db.addManyDB(data)
+
+    data = {"data":response}
+    currentPath = os.path.abspath(os.getcwd())
     
-    db = MongoConnection() # Creating a connection to ETH financial collection
-    COINAPIURL = "https://rest.coinapi.io/v1/exchangerate/ETH/USD/history"
-    response = requests.get(COINAPIURL,
-    params={'period_id': '1HRS',
-            'time_start': timeStart,
-            'time_end': timeEnd,
-            'apikey': apiKey}
-            )
-    jsonResponse = response.json()
+    with open(os.path.abspath(os.path.join(currentPath, "server", "cache", "cachedata.json")),"w") as f:
+        json.dump(data, f)
+    f.close()
 
-    if response:
-        print("Request Successful. Parsing Response...")
-        jsonResponse = generateJsonFile(jsonResponse)
-        data = json.loads(jsonResponse[1])
-        #if addToDB:
-        #    db.addManyDB(data)
-        currentPath = os.path.abspath(os.getcwd())
-        
-        with open(os.path.abspath(os.path.join(currentPath, "server", "cache", "cachedata.json")),"w") as f:
-            json.dump(data, f)
-        f.close()
-
-        return jsonResponse[1]
-
-    else:
-        errorString = "Error Requesting Coin API. Error Code: "+str(response.status_code)+". Reason: "+jsonResponse["error"]
-        raise Exception(errorString)
+    return data
 
 
 if __name__ == "__main__":

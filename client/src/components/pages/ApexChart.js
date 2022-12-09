@@ -8,26 +8,34 @@ const TableCoin = () => {
     <Table className="table" striped="columns">
       <thead>
         <tr>
-          <th>#</th>
-          <th>#</th>
+          <th>MA Crossover Strategy</th>
+          <th>Values</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Enter Row Name Here</td>
-          <td>3600</td>
+          <td>Maximum Loss</td>
+          <td>0</td>
         </tr>
         <tr>
-          <td>Enter Row Name Here</td>
-          <td>3600</td>
+          <td>Maximum Drawdown</td>
+          <td>0</td>
         </tr>
         <tr>
-          <td>Enter Row Name Here</td>
-          <td>3600</td>
+          <td>Expected Profit</td>
+          <td>0</td>
         </tr>
         <tr>
-          <td>Enter Row Name Here</td>
-          <td>3600</td>
+          <td>Win/Loss</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Maximum Win</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Maximum Loss</td>
+          <td>0</td>
         </tr>
       </tbody>
     </Table>
