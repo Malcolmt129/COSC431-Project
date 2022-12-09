@@ -1,5 +1,4 @@
 from mongoConnection import MongoConnection
-from logging import raiseExceptions
 import requests
 import datetime
 import calendar
@@ -12,10 +11,10 @@ def addFromCAPI(timeStart, timeEnd, apiKey, addToDB):
     db = MongoConnection() # Creating a connection to ETH financial collection
     COINAPIURL = "https://rest.coinapi.io/v1/exchangerate/ETH/USD/history"
     response = requests.get(COINAPIURL,
-    params={'period_id': '4HRS',
+    params={'period_id': '1HRS',
             'time_start': timeStart,
             'time_end': timeEnd,
-            'limit':2000,
+            'limit':99999,
             'apikey': apiKey}
             )
     jsonResponse = response.json()
@@ -56,12 +55,13 @@ def formatDataResponse(data):
     
 
     return responseData
-addFromCAPI("2021-12-01","2022-11-30","1E869C6C-3CEB-4F6E-B6A9-37214A271D1C", False)
+
+
     
 
 
 if __name__ == "__main__" :
-    db = MongoConnection()
+    #addFromCAPI("2021-12-01","2022-12-07","C8840AED-9AC5-4F51-B1F3-8212FC3F5F0A", True)
     
         # Basically so we can open connections automatically
     def __enter__(self):
