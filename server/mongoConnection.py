@@ -49,6 +49,6 @@ class MongoConnection:
 if __name__ == "__main__":
     
     db = MongoConnection()
-    # db.deleteAll()
+    #db.deleteAll()
     # Only use this code if you want to delete all inputs
     
