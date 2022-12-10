@@ -2,6 +2,31 @@ import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Table } from "react-bootstrap";
 
+const generateTrade = async () => {
+  try{
+    const url = `http://localhost:5000/tradedata`;
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+
+    console.log(data);
+
+    if (data["max_drawdown"].toFixed(2) == 0){
+      alert("Warning: Please graph at least 5 days worth of data");
+    }
+    document.getElementById("maxdraw").textContent = data["max_drawdown"].toFixed(2);
+    document.getElementById("expectedprofit").textContent = data["profits"].toFixed(2); 
+    document.getElementById("winloss").textContent = data["win_loss"].toFixed(2); 
+  }
+
+  catch(err){
+    alert("Error Calling Trade. This is most likely due to a divideByZero error. Try adding more data");
+    document.getElementById("maxdraw").textContent = 0;
+    document.getElementById("expectedprofit").textContent = 0;
+    document.getElementById("winloss").textContent = 0;
+
+  }
+}
 
 const TableCoin = () => {
   return (
@@ -14,30 +39,31 @@ const TableCoin = () => {
       </thead>
       <tbody>
         <tr>
-          <td>Maximum Loss</td>
+          <th>Maximum Loss</th>
+          <td id="maxloss">0</td>
+        </tr>
+        <tr>
+          <th>Maximum Drawdown</th>
+          <td id="maxdraw">0</td>
+        </tr>
+        <tr>
+          <th>Expected Profit</th>
+          <td id="expectedprofit">0</td>
+        </tr>
+        <tr>
+          <th>Win/Loss</th>
+          <td id="winloss">0</td>
+        </tr>
+        <tr>
+          <th>Maximum Win</th>
           <td>0</td>
         </tr>
         <tr>
-          <td>Maximum Drawdown</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td>Expected Profit</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td>Win/Loss</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td>Maximum Win</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td>Maximum Loss</td>
+          <th>Maximum Loss</th>
           <td>0</td>
         </tr>
       </tbody>
+      <button onClick={generateTrade}> Generate</button>
     </Table>
   );
 };
@@ -60,6 +86,9 @@ const ApexChart = () => {
         console.log(data);
         for(let i = 0; i < data["data"].length; i++){
           data["data"][i]["x"] = await new Date(data["data"][i]["x"]*1000);
+          for(let j = 0; j < data["data"][i]["y"].length; j++){
+            data["data"][i]["y"][j] = await data["data"][i]["y"][j].toFixed(2);
+          }
         }
 
         setAverageTemp(data["data"]); 
