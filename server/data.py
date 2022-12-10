@@ -21,11 +21,15 @@ def run():
     max_drawdown = max_draw(trades["GAIN"])
     print(max_drawdown)
     win_loss = winCount(trades["GAIN"]) / (len(trades)-1)
+    max_win = getLargestWin(trades["GAIN"])
+    max_loss = getLargestLoss(trades["GAIN"])
     
     #build the return dict for the frontend 
     return_dict["profits"] = exp_profit
     return_dict["max_drawdown"] = max_drawdown
     return_dict["win_loss"] = win_loss
+    return_dict["max_loss"] = max_loss
+    return_dict["max_win"] = max_win
 
     
     return return_dict
@@ -98,6 +102,13 @@ def winCount(row):
 
 def getProfit(df):
     return df["GAIN"].sum()
+
+def getLargestWin(row):
+    return row.max()
+
+def getLargestLoss(row):
+    return row.min()
+    
 
 
     
