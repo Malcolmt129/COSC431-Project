@@ -11,12 +11,11 @@ import NavBar from "./components/NavBar"
 
 
 
-
+//<NavBar/>
 export default function App() {
     return (
         <Router>
             <div>
-                <NavBar/>
                 <Routes>
                     <Route path="/login" element={ <LoginPage/> } />
                     <Route path="/register" element={ <RegisterPage/> } />

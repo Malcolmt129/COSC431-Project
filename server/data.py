@@ -1,5 +1,7 @@
 from mongoConnection import MongoConnection
 import pandas as pd
+import os 
+import json
 
 def run():
     
@@ -8,12 +10,16 @@ def run():
     
     #Creates the dataframe
     df = query2DF()
+    print(df)
     df_ma = makeMA_plot(df,ma_list)
+    print(df_ma)
     trades = findTrades(df_ma)
-    
+    print(trades)
     #Gets the stats
     exp_profit = getProfit(trades)
+    print(exp_profit)
     max_drawdown = max_draw(trades["GAIN"])
+    print(max_drawdown)
     win_loss = winCount(trades["GAIN"]) / (len(trades)-1)
     max_win = getLargestWin(trades["GAIN"])
     max_loss = getLargestLoss(trades["GAIN"])
@@ -24,17 +30,23 @@ def run():
     return_dict["win_loss"] = win_loss
     return_dict["max_loss"] = max_loss
     return_dict["max_win"] = max_win
-    
+
     
     return return_dict
     
 
 
 def query2DF():
-    db = MongoConnection()
-    res = db.query_from_to(1638331200,1641196800) #Returns iterable cursor Object
-    
-    df = pd.DataFrame(res) #makes dataframe
+    #db = MongoConnection()
+    #res = db.query_from_to(1638331200,1641196800) #Returns iterable cursor Object
+
+    currentPath = os.path.abspath(os.getcwd())
+    with open(os.path.abspath(os.path.join(currentPath, "server", "cache", "cachedata.json")),"r") as f:
+                res = json.load(f)
+
+    f.close()
+
+    df = pd.DataFrame(res["data"]) #makes dataframe
     df.rename(columns = {'x':'Time'}, inplace = True) #Renames x column to Time in df
     split = pd.DataFrame(df["y"].tolist(),columns=["Open","High","Low","Close"]) # Splits the y array into appropriate candle parts in df
     df = pd.concat([df,split], axis=1) #Brings the previous 
@@ -102,4 +114,5 @@ def getLargestLoss(row):
     
 
 if __name__ == "__main__":
-    run()
+    b = run()
+    print(b)
