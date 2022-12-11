@@ -24,7 +24,9 @@ const generateTrade = async () => {
         const response = await fetch(url);
         const data = await response.json();
 
-        if (data["max_drawdown"].toFixed(2) == 0){
+
+        console.log(data);
+        if (data["max_drawdown"].toFixed(2) === 0){
           alert("Warning: Please graph at least 5 days worth of data");
         }
         else{
@@ -34,6 +36,8 @@ const generateTrade = async () => {
             document.getElementById("maxdraw").textContent = data["max_drawdown"].toFixed(2);
             document.getElementById("expectedprofit").textContent = data["profits"].toFixed(2); 
             document.getElementById("winloss").textContent = data["win_loss"].toFixed(2); 
+            document.getElementById("maxwin").textContent = data["max_win"].toFixed(2); 
+            document.getElementById("maxloss").textContent = data["max_loss"].toFixed(2); 
           }
           catch(err){
             alert("Error: Trade Rejected");
@@ -46,6 +50,8 @@ const generateTrade = async () => {
         document.getElementById("maxdraw").textContent = 0;
         document.getElementById("expectedprofit").textContent = 0;
         document.getElementById("winloss").textContent = 0;
+        document.getElementById("maxwin").textContent = 0;
+        document.getElementById("maxloss").textContent = 0;
 
       }
     }
@@ -68,10 +74,6 @@ const TableCoin = () => {
       </thead>
       <tbody>
         <tr>
-          <th>Maximum Loss</th>
-          <td id="maxloss">0</td>
-        </tr>
-        <tr>
           <th>Maximum Drawdown</th>
           <td id="maxdraw">0</td>
         </tr>
@@ -80,16 +82,16 @@ const TableCoin = () => {
           <td id="expectedprofit">0</td>
         </tr>
         <tr>
-          <th>Win/Loss</th>
-          <td id="winloss">0</td>
-        </tr>
-        <tr>
           <th>Maximum Win</th>
-          <td>0</td>
+          <td id="maxwin">0</td>
         </tr>
         <tr>
           <th>Maximum Loss</th>
-          <td>0</td>
+          <td id="maxloss">0</td>
+        </tr>
+        <tr>
+          <th>Win/Loss</th>
+          <td id="winloss">0</td>
         </tr>
       </tbody>
       <button onClick={generateTrade}> Generate</button>
@@ -112,7 +114,6 @@ const ApexChart = () => {
       const response = await fetch(url);
       const data = await response.json();
       try {
-        console.log(data);
         for(let i = 0; i < data["data"].length; i++){
           data["data"][i]["x"] = await new Date(data["data"][i]["x"]*1000);
           for(let j = 0; j < data["data"][i]["y"].length; j++){
