@@ -1,30 +1,59 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Table } from "react-bootstrap";
+import { ethers } from "ethers";
+import abi from "./utils/testContract.json";
 
 const generateTrade = async () => {
   try{
-    const url = `http://localhost:5000/tradedata`;
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data);
+    const contractAddress = "0x664001EA26d0bd3792fCE25093a729c2cb281a48";
+    const contractABI = abi.abi;
+    const { ethereum } = window;
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
 
-    console.log(data);
+      const tx = {
+        to: contractAddress,
+        value: ethers.utils.parseEther('0.00001', 'ether')
+      };
+      //onst bankContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-    if (data["max_drawdown"].toFixed(2) == 0){
-      alert("Warning: Please graph at least 5 days worth of data");
+      try{
+        const url = `http://localhost:5000/tradedata`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data["max_drawdown"].toFixed(2) == 0){
+          alert("Warning: Please graph at least 5 days worth of data");
+        }
+        else{
+          try{
+            const transaction = await signer.sendTransaction(tx);
+            console.log(transaction);
+            document.getElementById("maxdraw").textContent = data["max_drawdown"].toFixed(2);
+            document.getElementById("expectedprofit").textContent = data["profits"].toFixed(2); 
+            document.getElementById("winloss").textContent = data["win_loss"].toFixed(2); 
+          }
+          catch(err){
+            alert("Error: Trade Rejected");
+          }
+        }
+      }
+
+      catch(err){
+        alert("Error Calling Trade. This is most likely due to a divideByZero error. Try adding more data");
+        document.getElementById("maxdraw").textContent = 0;
+        document.getElementById("expectedprofit").textContent = 0;
+        document.getElementById("winloss").textContent = 0;
+
+      }
     }
-    document.getElementById("maxdraw").textContent = data["max_drawdown"].toFixed(2);
-    document.getElementById("expectedprofit").textContent = data["profits"].toFixed(2); 
-    document.getElementById("winloss").textContent = data["win_loss"].toFixed(2); 
-  }
-
-  catch(err){
-    alert("Error Calling Trade. This is most likely due to a divideByZero error. Try adding more data");
-    document.getElementById("maxdraw").textContent = 0;
-    document.getElementById("expectedprofit").textContent = 0;
-    document.getElementById("winloss").textContent = 0;
-
+    else{
+      console.log("ETH window obj doesn't exist...");
+    }
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -79,7 +108,7 @@ const ApexChart = () => {
   // this is where you will be fetching the data and set the state
   useEffect(() => {
     const getData = async () => {
-      const url = `http://localhost:5000/graphdata/${startDate}/${endDate}/C8840AED-9AC5-4F51-B1F3-8212FC3F5F0A/false`;
+      const url = `http://localhost:5000/graphdata/${startDate}/${endDate}`;
       const response = await fetch(url);
       const data = await response.json();
       try {

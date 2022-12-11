@@ -31,8 +31,8 @@ def getEpochTime(desiredTime):
     
     return epochTime
 
-@app.route("/graphdata/<timeStart>/<timeEnd>/<apiKey>/<addToDB>")
-def test(timeStart, timeEnd, apiKey, addToDB):
+@app.route("/graphdata/<timeStart>/<timeEnd>")
+def test(timeStart, timeEnd):
     db = MongoConnection()  
 
     startEpoch = getEpochTime(timeStart)
