@@ -1,6 +1,6 @@
 # Ethereum Strategy Testing Project COSC431-Project 
 
-##COSC431 Group Project for simulating/graphing trading strategies on the market value of Etherum
+## COSC431 Group Project for simulating/graphing trading strategies on the market value of Etherum
 
 This project is an attempt to create a webpage/software for individuals to simulate different trading strategies for various crypto-currencies. By providing a webpage for users, one can generate candle plots for any crypto (currently our app only supports Ethereum) from any point in time in hourly intervals for visual reference of its value. From here, users can pay to test different strategies using a MetaMask Wallet to simulate as if they were buying/selling on that portion of data (Currently we have only implemented one strategy: Running Average). The components of the project can be broken down into the following:
 
