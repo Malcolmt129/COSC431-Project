@@ -17,10 +17,10 @@ Our project is still in development stages, and is not running on a public site.
 
 * Open a terminal and direct yourself to server.py found withing the Server folder and run the file. (This starts up the python backend and is important for grabbing your data)
 
-*Open another terminal and cd yourself into the client folder. From here run ```npm start``` (```npm install``` if this is your first time running the project) in the folder. This starts up the local webpage and can be accessed at http://localhost:3000
+* Open another terminal and cd yourself into the client folder. From here run ```npm start``` (```npm install``` if this is your first time running the project) in the folder. This starts up the local webpage and can be accessed at http://localhost:3000
 
-*Make sure to have a MetaMask Wallet to connect to our app and login. 
+* Make sure to have a MetaMask Wallet to connect to our app and login. 
 
-*To generate a graph, enter a start date and end date in the following format YYYY/MM/DD (for specific times, do YYYY/MM/DDTHH/mm/ss) and press generate
+* To generate a graph, enter a start date and end date in the following format YYYY/MM/DD (for specific times, do YYYY/MM/DDTHH/mm/ss) and press generate
 
-*After generating a candle Plot, you can press generate below the strategies table to test our strategy (For testing purposes, all transactions are done through goerli test etherum).
+* After generating a candle Plot, you can press generate below the strategies table to test our strategy (For testing purposes, all transactions are done through goerli test etherum).
